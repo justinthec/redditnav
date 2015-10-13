@@ -11,5 +11,12 @@
     },
     "permissions": [
         "activeTab"
+    ],
+    "content_scripts": [
+        {
+            "matches": ["*://*.reddit.com/r/*/comments/*"],
+            "css": ["redditnav.css"],
+            "js": ["jquery.js", "redditnav.js"]
+        }
     ]
 }
