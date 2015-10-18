@@ -48,17 +48,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
 console.log("WUBBA LUBBA DUB DUB");
 var parentComments = $(".sitetable.nestedlisting").children(".comment");
-var counter = 5;
-function gotoNextParent() {
-    var scrollTo = $(parentComments[counter]);
+var counter = 0;
+function gotoNextParent(location) {
+	var scrollTo = $(parentComments[location]);
 
     console.log(scrollTo)
     $("body, html").animate({
         scrollTop: scrollTo.offset().top
     });
-
-    counter++;
 }
-$(function() {
-    gotoNextParent();
+
+$(document).keydown(function(e) {
+	if(e.keyCode == 81){
+		if(counter == 0)
+			return;
+		else{
+			counter--;
+			gotoNextParent(counter);
+		}
+	}
+	else if (e.keyCode == 87){
+		if(counter >= parentComments.length){
+			counter = parentComments.length - 1;
+			return;
+		}
+		else{
+			counter++;
+			gotoNextParent(counter);
+		}
+	}
 });
