@@ -140,17 +140,19 @@ $(function() {
   });
 
   $(document).keydown(function(e) {
-    var pos = $(window).scrollTop();
-    console.log(pos);
+	if (!$(e.target).is('input, textarea')) {
+		var pos = $(window).scrollTop();
+		console.log(pos);
 
-    if(e.keyCode == 81){
-      e.preventDefault();
-      goToNextParent(pos, UP);
-    }
-    else if (e.keyCode == 87){
-      e.preventDefault();
-      goToNextParent(pos, DOWN);
-    }
+		if(e.keyCode == 81){
+			e.preventDefault();
+			goToNextParent(pos, UP);
+		}
+		else if (e.keyCode == 87){
+			e.preventDefault();
+			goToNextParent(pos, DOWN);
+		}
+	}
   });
 });
 
