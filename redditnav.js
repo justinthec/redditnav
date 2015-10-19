@@ -1,10 +1,9 @@
-$(window).load({})
-
 // Copyright (c) 2014 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 UP = 0
 DOWN = 1
+
 /**
  * Get the current URL.
  *
@@ -45,61 +44,70 @@ document.addEventListener('DOMContentLoaded', function() {
     chrome.tabs.executeScript(null, {
         file: "redditnav.js"
     });
-    alert(tab); 
   });
 });
 
-console.log("WUBBA LUBBA DUB DUB");
-var parentComments = $(".sitetable.nestedlisting").children(".comment").toArray();
-parentComments = parentComments.map(function(commentElement){
-	return $(commentElement);
 
-});
+function goToNextParent(pos, direction) {
+  var parentComments = $(".sitetable.nestedlisting").children(".comment").toArray();
+  parentComments = parentComments.map(function(commentElement){
+    return $(commentElement);
+  });
 
-function gotoNextParent(pos, direction) {
-	var scrollTo;
-	if(parentComments[0].offset().top > pos){
-		if(direction == DOWN)
-			scrollTo = parentComments[0]
-		else
-			return;
-	}
-	if(parentComments[parentComments.length - 1].offset().top < pos){
-		if(direction == UP)
-			scrollTo = parentComments[parentComments.length-1];
-		else
-			return;
-	}
-	for(var i = 0; i < parentComments.length - 1; i++){
-		if(parentComments[i].offset().top <= pos && pos < parentComments[i + 1].offset().top){
-			console.log(parentComments[i].offset().top);
-			if(direction == UP){
-				if(parentComments[i].offset().top == pos && i > 0){
-					scrollTo = parentComments[i-1];
-				}
-				else{
-					scrollTo = parentComments[i];
-				}
-			}
-			else if(direction == DOWN) {
-				scrollTo = parentComments[i+1];
-			}
-		}
+	var scrollTo = getNextParent(Math.ceil(pos), direction, parentComments);
+  console.log("to: " + getPos(scrollTo) + ", from: " + Math.ceil(pos)  + ", " + direction)
+  if(scrollTo == null)
+    return;
 
-	}
+  $("body").animate({
+      scrollTop: getPos(scrollTo)
+  });
+}
 
-    console.log(scrollTo)
-    $("body, html").animate({
-        scrollTop: scrollTo.offset().top
-    });
+function getNextParent(pos, direction, parentComments) {
+  if(getPos(parentComments[0]) > pos){
+    if(direction == DOWN)
+      return parentComments[0];
+    else
+      return null;
+  }
+  if(getPos(parentComments[parentComments.length - 1]) < pos){
+    if(direction == UP)
+      return parentComments[parentComments.length-1];
+    else
+      return null;
+  }
+  for(var i = 0; i < parentComments.length - 1; i++){
+    if(getPos(parentComments[i]) <= pos && pos < getPos(parentComments[i+1])){
+      if(direction == UP){
+        if(getPos(parentComments[i]) == pos && i > 0){
+          return parentComments[i-1];
+        }
+        else{
+          return parentComments[i];
+        }
+      }
+      else if(direction == DOWN) {
+        return parentComments[i+1];
+      }
+    }
+  }
+  return null;
+}
+
+function getPos($node) {
+  return Math.round($node.offset().top);
 }
 
 $(document).keydown(function(e) {
 	var pos = $(window).scrollTop();
+
 	if(e.keyCode == 81){
-			gotoNextParent(pos, UP);
+    e.preventDefault();
+		goToNextParent(pos, UP);
 	}
 	else if (e.keyCode == 87){
-			gotoNextParent(pos, DOWN);
+    e.preventDefault();
+		goToNextParent(pos, DOWN);
 	}
 });
