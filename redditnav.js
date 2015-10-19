@@ -55,9 +55,10 @@ function goToNextParent(pos, direction) {
   });
 
 	var scrollTo = getNextParent(Math.ceil(pos), direction, parentComments);
-  console.log("to: " + getPos(scrollTo) + ", from: " + Math.ceil(pos)  + ", " + direction)
-  if(scrollTo == null)
+  if(scrollTo == null){
     return;
+  }
+  console.log("to: " + getPos(scrollTo) + ", from: " + Math.ceil(pos)  + ", " + direction)
 
   $("body").animate({
       scrollTop: getPos(scrollTo)
@@ -65,18 +66,27 @@ function goToNextParent(pos, direction) {
 }
 
 function getNextParent(pos, direction, parentComments) {
-  if(getPos(parentComments[0]) > pos){
+  if(pos < getPos(parentComments[0])){
     if(direction == DOWN)
       return parentComments[0];
     else
       return null;
   }
-  if(getPos(parentComments[parentComments.length - 1]) < pos){
+
+  if(pos > getPos(parentComments[parentComments.length-1])){
     if(direction == UP)
       return parentComments[parentComments.length-1];
     else
       return null;
   }
+
+  if(pos == getPos(parentComments[parentComments.length-1])){
+    if(direction == UP)
+      return parentComments[parentComments.length-2];
+    else
+      return null;
+  }
+
   for(var i = 0; i < parentComments.length - 1; i++){
     if(getPos(parentComments[i]) <= pos && pos < getPos(parentComments[i+1])){
       if(direction == UP){
@@ -92,6 +102,7 @@ function getNextParent(pos, direction, parentComments) {
       }
     }
   }
+
   return null;
 }
 
@@ -99,15 +110,47 @@ function getPos($node) {
   return Math.round($node.offset().top);
 }
 
-$(document).keydown(function(e) {
-	var pos = $(window).scrollTop();
+$(function() {
+  $("head").append('<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">');
+  $("body").append('<ul class="mfb-component--br mfb-slidein-spring" data-mfb-toggle="hover">\
+    <li class="mfb-component__wrap">\
+    <a id="redditNavDown" data-mfb-label="Next Thread" class="mfb-component__button--main">\
+      <i class="mfb-component__main-icon--resting ion-compass"></i>\
+      <i class="mfb-component__main-icon--active ion-chevron-down"></i>\
+    </a>\
+    <ul class="mfb-component__list">\
+      <li>\
+        <a id="redditNavUp" data-mfb-label="Previous Thread" class="mfb-component__button--child">\
+          <i class="mfb-component__child-icon ion-chevron-up"></i>\
+        </a>\
+      </li>\
+    </ul>\
+  </li></ul>');
 
-	if(e.keyCode == 81){
-    e.preventDefault();
-		goToNextParent(pos, UP);
-	}
-	else if (e.keyCode == 87){
-    e.preventDefault();
-		goToNextParent(pos, DOWN);
-	}
+  $("a#redditNavUp").click(function() {
+    var pos = $(window).scrollTop();
+    console.log(pos);
+    goToNextParent(pos, UP);
+  });
+
+  $("a#redditNavDown").click(function() {
+    var pos = $(window).scrollTop();
+    console.log(pos);
+    goToNextParent(pos, DOWN);
+  });
+
+  $(document).keydown(function(e) {
+    var pos = $(window).scrollTop();
+    console.log(pos);
+
+    if(e.keyCode == 81){
+      e.preventDefault();
+      goToNextParent(pos, UP);
+    }
+    else if (e.keyCode == 87){
+      e.preventDefault();
+      goToNextParent(pos, DOWN);
+    }
+  });
 });
+
