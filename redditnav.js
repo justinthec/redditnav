@@ -1,7 +1,10 @@
+$(window).load({})
+
 // Copyright (c) 2014 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
+UP = 0
+DOWN = 1
 /**
  * Get the current URL.
  *
@@ -47,10 +50,43 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 console.log("WUBBA LUBBA DUB DUB");
-var parentComments = $(".sitetable.nestedlisting").children(".comment");
-var counter = 0;
-function gotoNextParent(location) {
-	var scrollTo = $(parentComments[location]);
+var parentComments = $(".sitetable.nestedlisting").children(".comment").toArray();
+parentComments = parentComments.map(function(commentElement){
+	return $(commentElement);
+
+});
+
+function gotoNextParent(pos, direction) {
+	var scrollTo;
+	if(parentComments[0].offset().top > pos){
+		if(direction == DOWN)
+			scrollTo = parentComments[0]
+		else
+			return;
+	}
+	if(parentComments[parentComments.length - 1].offset().top < pos){
+		if(direction == UP)
+			scrollTo = parentComments[parentComments.length-1];
+		else
+			return;
+	}
+	for(var i = 0; i < parentComments.length - 1; i++){
+		if(parentComments[i].offset().top <= pos && pos < parentComments[i + 1].offset().top){
+			console.log(parentComments[i].offset().top);
+			if(direction == UP){
+				if(parentComments[i].offset().top == pos && i > 0){
+					scrollTo = parentComments[i-1];
+				}
+				else{
+					scrollTo = parentComments[i];
+				}
+			}
+			else if(direction == DOWN) {
+				scrollTo = parentComments[i+1];
+			}
+		}
+
+	}
 
     console.log(scrollTo)
     $("body, html").animate({
@@ -59,22 +95,11 @@ function gotoNextParent(location) {
 }
 
 $(document).keydown(function(e) {
+	var pos = $(window).scrollTop();
 	if(e.keyCode == 81){
-		if(counter == 0)
-			return;
-		else{
-			counter--;
-			gotoNextParent(counter);
-		}
+			gotoNextParent(pos, UP);
 	}
 	else if (e.keyCode == 87){
-		if(counter >= parentComments.length){
-			counter = parentComments.length - 1;
-			return;
-		}
-		else{
-			counter++;
-			gotoNextParent(counter);
-		}
+			gotoNextParent(pos, DOWN);
 	}
 });
