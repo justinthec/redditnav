@@ -110,17 +110,23 @@ function getPos($node) {
   return Math.round($node.offset().top);
 }
 
+function findHighestZIndex() {
+  var elems = $(".titlebox");
+  var highest = parseInt($(".titlebox").children()[1].style.zIndex);
+  return highest;
+}
+
 $(function() {
   $("head").append('<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">');
-  $("body").append('<ul class="mfb-component--br mfb-slidein-spring" data-mfb-toggle="hover">\
+  $("body").append('<ul class="mfb-component--br mfb-slidein-spring" style="z-index: ' + (findHighestZIndex() + 1) + '"data-mfb-toggle="hover">\
     <li class="mfb-component__wrap">\
-    <a id="redditNavDown" data-mfb-label="Next Thread" class="mfb-component__button--main">\
+    <a id="redditNavDown" data-mfb-label="Next Thread (W)" class="mfb-component__button--main">\
       <i class="mfb-component__main-icon--resting ion-compass"></i>\
       <i class="mfb-component__main-icon--active ion-chevron-down"></i>\
     </a>\
     <ul class="mfb-component__list">\
       <li>\
-        <a id="redditNavUp" data-mfb-label="Previous Thread" class="mfb-component__button--child">\
+        <a id="redditNavUp" data-mfb-label="Previous Thread (Q)" class="mfb-component__button--child">\
           <i class="mfb-component__child-icon ion-chevron-up"></i>\
         </a>\
       </li>\
