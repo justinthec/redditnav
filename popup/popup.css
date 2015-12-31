@@ -1,0 +1,65 @@
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  font-size: 100%;
+}
+
+.section {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.section--header {
+  padding-top: 5px;
+  padding-bottom: 0;
+  background-color: #FF5722;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-icon {
+  background-image: url('icon.png');
+  height: 4em;
+} 
+
+.header-text {
+  padding-left: 10px;
+  letter-spacing: 3px;
+}
+
+.nav-text {
+  letter-spacing: normal;
+  font-weight: bold;
+}
+
+.section--body {
+  color: #727272;
+}
+
+
+/* Materialize Overrides */
+
+.tabs {
+  overflow-x: hidden;
+  background-color: #FF5722;
+}
+
+.tabs .tab a {
+  color: #FFCCBC;
+}
+
+.tabs .tab a:hover, .tabs .tab a.active {
+  color: white;
+  font-weight: bold;
+}
+
+.tabs .tab a:hover {
+  background-color: #E64A19;
+}
+
+.tabs .indicator {
+  background-color: white;
+  height: 4px;
+}
