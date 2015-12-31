@@ -72,22 +72,34 @@ function findHighestZIndex() {
   return highest;
 }
 
+function setUpButton($floatingButton, items) {
+  $floatingButton.css('z-index', findHighestZIndex() + 1);
+  $floatingButton.find('.mfb-component__button--main, .mfb-component__button--child').css('background-color', items.color);
+}
+
 $(function() {
-  $("head").append('<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">');
-  $("body").append('<ul class="mfb-component--br mfb-slidein-spring" style="z-index: ' + (findHighestZIndex() + 1) + '"data-mfb-toggle="hover">\
-    <li class="mfb-component__wrap">\
-    <a id="redditNavDown" data-mfb-label="Next Thread (W)" class="mfb-component__button--main">\
-      <i class="mfb-component__main-icon--resting ion-compass"></i>\
-      <i class="mfb-component__main-icon--active ion-chevron-down"></i>\
-    </a>\
-    <ul class="mfb-component__list">\
-      <li>\
-        <a id="redditNavUp" data-mfb-label="Previous Thread (Q)" class="mfb-component__button--child">\
-          <i class="mfb-component__child-icon ion-chevron-up"></i>\
-        </a>\
-      </li>\
-    </ul>\
-  </li></ul>');
+  chrome.storage.sync.get({
+    color: '#FF5722',
+  }, function(items) {
+    $("head").append('<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">');
+    var $floatingButton = $('<ul class="mfb-component--br mfb-slidein-spring" data-mfb-toggle="hover">\
+      <li class="mfb-component__wrap">\
+      <a id="redditNavDown" data-mfb-label="Next Thread (W)" class="mfb-component__button--main">\
+        <i class="mfb-component__main-icon--resting ion-compass"></i>\
+        <i class="mfb-component__main-icon--active ion-chevron-down"></i>\
+      </a>\
+      <ul class="mfb-component__list">\
+        <li>\
+          <a id="redditNavUp" data-mfb-label="Previous Thread (Q)" class="mfb-component__button--child">\
+            <i class="mfb-component__child-icon ion-chevron-up"></i>\
+          </a>\
+        </li>\
+      </ul>\
+    </li></ul>');
+    setUpButton($floatingButton, items);
+    $("body").append($floatingButton);
+  });
+
 
   $("a#redditNavUp").click(function() {
     var pos = $(window).scrollTop();

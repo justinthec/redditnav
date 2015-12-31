@@ -11,7 +11,8 @@
         "default_title": "RedditNav"
     },
     "permissions": [
-        "activeTab"
+        "activeTab",
+        "storage"
     ],
     "content_scripts": [
         {
