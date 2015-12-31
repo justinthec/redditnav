@@ -22,6 +22,7 @@ body {
 .header-icon {
   background-image: url('icon.png');
   height: 4em;
+  width: 4em;
 } 
 
 .header-text {
