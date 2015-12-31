@@ -9,7 +9,7 @@ body {
   padding-right: 15px;
 }
 
-.section--header {
+.section.section--header {
   padding-top: 5px;
   padding-bottom: 0;
   background-color: #FF5722;
@@ -35,8 +35,60 @@ body {
   font-weight: bold;
 }
 
-.section--body {
+.section.section--body {
   color: #727272;
+}
+
+.colors-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.colors-container .color {
+  height: 55px;
+  width: 25%;
+  border: none;
+  transition: all 0.3s, ease-out;
+}
+
+.colors-container .color:hover {
+  z-index: 3;
+  -webkit-box-shadow: 2px 10px 49px 0px rgba(0,0,0,0.4);
+  -moz-box-shadow: 2px 10px 49px 0px rgba(0,0,0,0.4);
+  box-shadow: 2px 10px 49px 0px rgba(0,0,0,0.4);
+}
+
+.colors-container .color.color--red {
+  background-color: #F44336;
+}
+
+.colors-container .color.color--orange {
+  background-color: #FF5722;
+}
+
+.colors-container .color.color--yellow {
+  background-color: #FFC107;
+}
+
+.colors-container .color.color--green {
+  background-color: #4CAF50;
+}
+
+.colors-container .color.color--grey {
+  background-color: #607D8B;
+}
+
+.colors-container .color.color--purple {
+  background-color: #673AB7;
+}
+
+.colors-container .color.color--blue {
+  background-color: #2196F3;
+}
+
+.colors-container .color.color--cyan {
+  background-color: #00BCD4;
 }
 
 
