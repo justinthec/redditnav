@@ -1,3 +1,12 @@
 a.mfb-component__button--main, a.mfb-component__button--child {
   background-color: #FF5722;
+  border-radius: 50% !important;
+}
+
+.ion-chevron-down:before {
+  color: white;
+}
+
+.ion-chevron-up:before {
+  color: white;
 }
