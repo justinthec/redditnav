@@ -75,11 +75,25 @@ function findHighestZIndex() {
 function setUpButton($floatingButton, items) {
   $floatingButton.css('z-index', findHighestZIndex() + 1);
   $floatingButton.find('.mfb-component__button--main, .mfb-component__button--child').css('background-color', items.color);
+  var buttonClass;
+  switch(items.buttonPos){
+    case "right":
+      buttonClass = "mfb-component--br mfb-slidein-spring";
+      break;
+    case "left":
+      buttonClass = "mfb-component--bl mfb-slidein-spring";
+      break;
+    case "hide":
+      buttonClass = "mfb-component--hide";
+      break;
+  }
+  $floatingButton.attr('class', buttonClass);
 }
 
 $(function() {
   chrome.storage.sync.get({
     color: '#FF5722',
+    buttonPos: 'mfb-component--br mfb-slidein-spring'
   }, function(items) {
     $("head").append('<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">');
     var $floatingButton = $('<ul class="mfb-component--br mfb-slidein-spring" data-mfb-toggle="hover">\
@@ -99,7 +113,6 @@ $(function() {
     setUpButton($floatingButton, items);
     $("body").append($floatingButton);
   });
-
 
   $("a#redditNavUp").click(function() {
     var pos = $(window).scrollTop();
