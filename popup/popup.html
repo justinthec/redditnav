@@ -1,0 +1,37 @@
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+  <head>
+    <title>RedditNav Panel</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <link rel="stylesheet" href="popup.css" type="text/css">
+    <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+     -->
+    <script src="../vendor/jquery/jquery.js"></script>
+    <script src="../vendor/materialize/materialize.js"></script>
+    <script src="popup.js"></script>
+  </head>
+  <body>
+    <div class="section section--header">
+      <img src="icon.png" class="header-icon"> <h3 class="header-text">Reddit<span class="nav-text">Nav</span></h3>
+    </div>
+    <ul class="tabs">
+      <li class="tab"><a class="active" href="#ColorTab">Color</a></li>
+      <li class="tab"><a href="#ButtonTab">Button</a></li>
+      <li class="tab"><a href="#AboutTab">About</a></li>
+    </ul>
+    <div id="ColorTab" class="section section--body">Color Options</div>
+    <div id="ButtonTab" class="section section--body">Button Options</div>
+    <div id="AboutTab" class="section section--body">About Section</div>
+  </body>
+</html>
+
