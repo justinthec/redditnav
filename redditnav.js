@@ -10,15 +10,16 @@ function goToNextParent(pos, direction) {
     return $(commentElement);
   });
 
-	var scrollTo = getNextParent(Math.ceil(pos), direction, parentComments);
-  if(scrollTo == null){
+	var $scrollTo = getNextParent(Math.ceil(pos), direction, parentComments);
+  if($scrollTo == null){
     return;
   }
-  console.log("to: " + getPos(scrollTo) + ", from: " + Math.ceil(pos)  + ", " + direction)
+  console.log("to: " + getPos($scrollTo) + ", from: " + Math.ceil(pos)  + ", " + direction)
 
   $("body").animate({
-      scrollTop: getPos(scrollTo)
+      scrollTop: getPos($scrollTo)
   });
+  $scrollTo.children(".entry").click();
 }
 
 function getNextParent(pos, direction, parentComments) {
