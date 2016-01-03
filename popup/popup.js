@@ -1,5 +1,11 @@
+var toastActive = false;
 function triggerToast () {
-  Materialize.toast('Refresh to see changes!', 4000);
+  if (!toastActive) {
+    toastActive = true;
+    Materialize.toast('Refresh to see changes!', 4000, '', function() {
+      toastActive = false
+    });
+  }
 }
 
 $(function() {
