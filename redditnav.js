@@ -113,19 +113,19 @@ $(function() {
     </li></ul>');
     setUpButton($floatingButton, items);
     $("body").append($floatingButton);
+    $("a#redditNavUp").click(function() {
+      var pos = $(window).scrollTop();
+      console.log(pos);
+      goToNextParent(pos, UP);
+    });   
+    $("a#redditNavDown").click(function() {
+      var pos = $(window).scrollTop();
+      console.log(pos);
+      goToNextParent(pos, DOWN);
+    });
   });
 
-  $("a#redditNavUp").click(function() {
-    var pos = $(window).scrollTop();
-    console.log(pos);
-    goToNextParent(pos, UP);
-  });
 
-  $("a#redditNavDown").click(function() {
-    var pos = $(window).scrollTop();
-    console.log(pos);
-    goToNextParent(pos, DOWN);
-  });
 
   $(document).keydown(function(e) {
 	if (!$(e.target).is('input, textarea')) {
