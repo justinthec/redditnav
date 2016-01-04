@@ -28,7 +28,9 @@ $(function() {
   });
 
   $('a[href="#ButtonTab"').on('click', function() {
-    chrome.storage.sync.get('buttonPos', function (items) {
+    chrome.storage.sync.get({
+      buttonPos: 'right'
+    }, function(items) {
       $('#' + items.buttonPos + '').prop('checked', true);
     });
   });
