@@ -32,4 +32,9 @@ $(function() {
       $('#' + items.buttonPos + '').prop('checked', true);
     });
   });
+
+  $('a.js-author-link').on('click', function() {
+    chrome.tabs.create({url: $(this).attr('href')});
+    return false;
+  });
 });
