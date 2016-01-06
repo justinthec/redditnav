@@ -10,7 +10,7 @@ function goToNextParent(pos, direction) {
     return $(commentElement);
   });
 
-	var $scrollTo = getNextParent(Math.ceil(pos), direction, parentComments);
+  var $scrollTo = getNextParent(Math.ceil(pos), direction, parentComments);
   if($scrollTo == null){
     return;
   }
