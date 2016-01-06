@@ -2,9 +2,9 @@
 ---------
 
 [RedditNav](https://chrome.google.com/webstore/detail/reddit-nav/dpkijnoebmekoiafbkledpjhkpgllkfe) is a beautiful way of moving between threads, accelerating the way you browse reddit comments.
- - You can navigate between root threads using the floating action button:
+ - You can navigate between root threads using the floating navigation button:
  
- ![gif](http://i.imgur.com/HJ5p1P6.gif)
+ ![gif](https://giant.gfycat.com/WarmheartedFastAgouti.gif)
   
   alternatively you can use the Hotkeys `W` and `Q`
   
@@ -14,12 +14,15 @@
   
 **Features**
 ---------
+ - Intuitive floating navigation button:
+ 
+ ![image](http://i.imgur.com/fvER7Kl.png?2)
 
- - Customize the button color: 
+ - Customizable button color: 
  
  ![image](http://i.imgur.com/OZZbgKu.png?1)
  
- - Choose the button position on the screen:
+ - Changable on-screen button position:
  
  ![image](http://i.imgur.com/16SGwIR.png?1)
 
