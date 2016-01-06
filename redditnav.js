@@ -4,8 +4,15 @@
 UP = 0
 DOWN = 1
 
+function getParentComments(){
+  if ($(".RES-keyNav-activeElement").parent().hasClass("comment")){
+    return $(".RES-keyNav-activeElement").closest(".sitetable[class*=listing]").children(".comment").toArray();
+  }
+  return $(".sitetable.nestedlisting").children(".comment").toArray();
+}
+
 function goToNextParent(pos, direction) {
-  var parentComments = $(".sitetable.nestedlisting").children(".comment").toArray();
+  var parentComments = getParentComments()
   parentComments = parentComments.map(function(commentElement){
     return $(commentElement);
   });
@@ -142,4 +149,19 @@ $(function() {
 		}
 	}
   });
+
+  if (!$("body").hasClass("res")){
+    $(document).click(function(e) {
+      var clicked = $(e.target).closest(".thing").children(".entry").addClass("RES-keyNav-activeElement");
+      if (clicked.length != 0){
+        $(".RES-keyNav-activeElement").each(function(){
+          if ($(this).parent().attr("id") != clicked.parent().attr("id")){
+           $(this).removeClass("RES-keyNav-activeElement");
+          }
+        });
+     }
+    });
+
+    $(".self").addClass("RES-keyNav-activeElement");
+  }
 });
