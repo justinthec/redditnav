@@ -1,24 +1,9 @@
 <!doctype html>
-<!--
- This page is shown when the extension button is clicked, because the
- "browser_action" field in manifest.json contains the "default_popup" key with
- value "popup.html".
- -->
 <html>
   <head>
     <title>RedditNav Panel</title>
-    <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
     <link rel="stylesheet" href="popup.css" type="text/css">
-    <!--
-      - JavaScript and HTML must be in separate files: see our Content Security
-      - Policy documentation[1] for details and explanation.
-      -
-      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
-     -->
-    <script src="../vendor/jquery/jquery.js"></script>
-    <script src="../vendor/materialize/materialize.js"></script>
-    <script src="popup.js"></script>
   </head>
   <body>
     <div class="section section--header">
@@ -69,6 +54,11 @@
       <h5>About</h5>
       <p>RedditNav is a beautiful way of moving between threads, accelerating the way you browse reddit comments.</p>
       <p>Made by <a class="js-author-link" href="http://github.com/justinthec">Justin Chan</a> and <a class="js-author-link" href="http://github.com/srdjanm88">Srdjan Mitrovic</a>.</p>
+    </div>
+    <div id="scripts">
+      <script src="../vendor/jquery/jquery.js"></script>
+      <script src="../vendor/materialize/materialize.js"></script>
+      <script src="popup.js"></script>
     </div>
   </body>
 </html>

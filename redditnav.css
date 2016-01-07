@@ -1,15 +1,12 @@
-a.mfb-component__button--main, a.mfb-component__button--child {
-  border-radius: 50% !important;
+#redditNavContainer {
+	z-index: 1000000 !important;
 }
 
-.ion-chevron-down:before {
-  color: white;
+#redditNavContainer.mfb-component--hide {
+  display: none !important;
 }
 
-.ion-chevron-up:before {
-  color: white;
-}
-
-.mfb-component--hide {
-  display: none;
+#redditNavContainer .ion-chevron-down::before,
+#redditNavContainer .ion-chevron-up::before {
+  color: white !important;
 }
