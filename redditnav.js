@@ -67,17 +67,12 @@ chrome.storage.sync.get({
   color: '#FF5722',
   buttonPos: 'right'
 }, function(items) {
-  var iconic = document.createElement("link");
-  iconic.href = "//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css";
-  iconic.rel = "stylesheet";
-  document.head.appendChild(iconic);
-
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.open("GET", chrome.extension.getURL("redditnav.html"), false);
   xmlhttp.send();
 
   var container = (new DOMParser()).parseFromString(xmlhttp.responseText, "text/html").getElementById("redditNavContainer");
-  Array.prototype.forEach.call(container.querySelectorAll("a"), (element) => element.style.backgroundColor = items.color);
+  Array.prototype.forEach.call(container.querySelectorAll("a"), (element) => element.style.color = items.color);
   if (items.buttonPos === "hide")
     container.classList.add("mfb-component--hide");
   else if (items.buttonPos === "left")

@@ -6,7 +6,21 @@
   display: none !important;
 }
 
-#redditNavContainer .ion-chevron-down::before,
-#redditNavContainer .ion-chevron-up::before {
-  color: white !important;
+#redditNavContainer .mfb-component__button--main,
+#redditNavContainer .mfb-component__button--child {
+	background-color: currentColor !important;
+}
+
+#redditNavContainer .mfb-component__list > li {
+	right: 0 !important;
+}
+
+#redditNavContainer .svg {
+  width: 15px !important;
+  height: 15px !important;
+}
+
+#redditNavContainer .svg.chevron-down,
+#redditNavContainer .svg.compass {
+	padding-top: 1px !important;
 }
