@@ -59,7 +59,8 @@
   background: rgba(0, 0, 0, 0.6);
   border-radius: 3px;
   opacity: 0;
-  transition: opacity 500ms;
+  pointer-events: none;
+  transition: opacity 500ms 50ms;
 }
 
 #redditNavContainer.right > .button > a::after {
@@ -72,7 +73,7 @@
 
 #redditNavContainer > .button > a:hover::after {
   opacity: 1;
-  transition: opacity 300ms;
+  transition: opacity 300ms 250ms;
 }
 
 #redditNavContainer > .button > a > div {
