@@ -72,13 +72,13 @@ chrome.storage.sync.get({
   xmlhttp.send();
 
   var container = (new DOMParser()).parseFromString(xmlhttp.responseText, "text/html").getElementById("redditNavContainer");
-  Array.prototype.forEach.call(container.querySelectorAll("a"), (element) => element.style.color = items.color);
+  Array.prototype.forEach.call(container.getElementsByTagName("a"), (element) => element.style.color = items.color);
   if (items.buttonPos === "hide")
-    container.classList.add("mfb-component--hide");
+    container.classList.add("hide");
   else if (items.buttonPos === "left")
-    container.classList.add("mfb-component--bl");
+    container.classList.add("left");
   else // if (items.buttonPos === "right")
-    container.classList.add("mfb-component--br");
+    container.classList.add("right");
 
   document.body.appendChild(container);
 

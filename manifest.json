@@ -21,7 +21,7 @@
     "content_scripts": [
         {
             "matches": ["*://*.reddit.com/r/*/comments/*"],
-            "css": ["vendor/mfb/mfb.min.css", "redditnav.css"],
+            "css": ["redditnav.css"],
             "js": ["redditnav.js"]
         }
     ]
