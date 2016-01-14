@@ -60,7 +60,7 @@ function goToNextParent(pos, direction) {
     return;
 
   animateScrollTo(getPos(scrollTo), 800);
-  Array.prototype.forEach.call(scrollTo.querySelectorAll(".entry"), (element) => element.click());
+  Array.from(scrollTo.querySelectorAll(".entry")).forEach((element) => element.click());
 }
 
 chrome.storage.sync.get({
@@ -72,7 +72,7 @@ chrome.storage.sync.get({
   xmlhttp.send();
 
   var container = (new DOMParser()).parseFromString(xmlhttp.responseText, "text/html").getElementById("redditNavContainer");
-  Array.prototype.forEach.call(container.getElementsByTagName("a"), (element) => element.style.color = items.color);
+  Array.from(container.getElementsByTagName("a")).forEach((element) => element.style.color = items.color);
   if (items.buttonPos === "hide")
     container.classList.add("hide");
   else if (items.buttonPos === "left")
