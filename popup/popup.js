@@ -9,7 +9,7 @@ function triggerToast () {
   });
 }
 
-Array.prototype.forEach.call(document.querySelectorAll("button.color"), function(button) {
+Array.from(document.querySelectorAll("button.color")).forEach(function(button) {
   button.addEventListener("click", function(event) {
     chrome.storage.sync.set({
       color: window.getComputedStyle(button).backgroundColor
@@ -19,7 +19,7 @@ Array.prototype.forEach.call(document.querySelectorAll("button.color"), function
   });
 });
 
-Array.prototype.forEach.call(document.querySelectorAll("input[type=radio]"), function(input) {
+Array.from(document.querySelectorAll("input[type=radio]")).forEach(function(input) {
   input.addEventListener("change", function(event) {
     if (!input.checked)
       return;
@@ -40,7 +40,7 @@ document.querySelector("a[href=\"#ButtonTab\"]").addEventListener("click", funct
   });
 });
 
-Array.prototype.forEach.call(document.querySelectorAll("a.js-author-link"), function(link) {
+Array.from(document.querySelectorAll("a.js-author-link")).forEach(function(link) {
   link.addEventListener("click", function(event) {
     chrome.tabs.create({url: link.href});
     return false;
