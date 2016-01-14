@@ -18,9 +18,16 @@
 
 #redditNavContainer > .button {
   position: absolute;
-  right: 0;
   bottom: 0;
   padding: 10px 5px;
+}
+
+#redditNavContainer.right > .button {
+  right: 0;
+}
+
+#redditNavContainer.left > .button {
+  left: 0;
 }
 
 #redditNavContainer > .button.main {
