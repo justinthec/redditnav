@@ -30,14 +30,14 @@ function animateScrollTo(position, duration) {
 }
 
 function getPos(node) {
-  return Math.ceil(node.getBoundingClientRect().top + document.body.scrollTop);
+  return node.getBoundingClientRect().top + document.body.scrollTop;
 }
 
 function getNextParent(pos, direction, parentComments) {
   var currentIndex = 0;
   for (var i = 0; i < parentComments.length; ++i) {
     var parentPos = getPos(parentComments[i]);
-    if (pos > parentPos || (direction === directions.DOWN && pos === parentPos))
+    if (pos > parentPos || (direction === directions.DOWN && Math.abs(pos - parentPos) < 5))
       continue;
 
     currentIndex = i;
@@ -55,7 +55,7 @@ function getNextParent(pos, direction, parentComments) {
 
 function goToNextParent(pos, direction) {
   var parentComments = Array.from(document.querySelectorAll(".sitetable.nestedlisting > .comment"));
-  var scrollTo = getNextParent(Math.ceil(pos), direction, parentComments);
+  var scrollTo = getNextParent(pos, direction, parentComments);
   if (!scrollTo)
     return;
 
