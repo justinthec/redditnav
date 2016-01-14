@@ -23,8 +23,10 @@ function animateScrollTo(position, duration) {
     window.scroll(0, top);
     if (progress < duration)
       window.requestAnimationFrame(step);
-    else
+    else {
+      window.scroll(0, position);
       scrolling = false;
+    }
   }
   window.requestAnimationFrame(step);
 }
@@ -37,7 +39,7 @@ function getNextParent(pos, direction, parentComments) {
   var currentIndex = 0;
   for (var i = 0; i < parentComments.length; ++i) {
     var parentPos = getPos(parentComments[i]);
-    if (pos > parentPos || (direction === directions.DOWN && Math.abs(pos - parentPos) < 5))
+    if (pos > parentPos || (direction === directions.DOWN && pos === parentPos))
       continue;
 
     currentIndex = i;
