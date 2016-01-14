@@ -16,7 +16,7 @@ function goToNextParent(pos, direction) {
   }
   console.log("to: " + getPos($scrollTo) + ", from: " + Math.ceil(pos)  + ", " + direction)
 
-  $("body").animate({
+  $("body, html").animate({
       scrollTop: getPos($scrollTo)
   });
   $scrollTo.children(".entry").click();
@@ -117,7 +117,7 @@ $(function() {
       var pos = $(window).scrollTop();
       console.log(pos);
       goToNextParent(pos, UP);
-    });   
+    });
     $("a#redditNavDown").click(function() {
       var pos = $(window).scrollTop();
       console.log(pos);
