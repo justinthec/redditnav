@@ -28,14 +28,15 @@ function animateScrollTo(position, duration) {
       scrolling = false;
     }
   }
-  window.requestAnimationFrame(step);
+  step(performance.now());
 }
 
 function getPos(node) {
-  return node.getBoundingClientRect().top + document.body.scrollTop;
+  return Math.round(node.getBoundingClientRect().top + document.body.scrollTop);
 }
 
-function getNextParent(pos, direction, parentComments) {
+function getNextParent(direction, parentComments) {
+  var pos = Math.round(window.scrollY);
   var currentIndex = 0;
   for (var i = 0; i < parentComments.length; ++i) {
     var parentPos = getPos(parentComments[i]);
@@ -55,9 +56,9 @@ function getNextParent(pos, direction, parentComments) {
   return null;
 }
 
-function goToNextParent(pos, direction) {
+function goToNextParent(direction) {
   var parentComments = Array.from(document.querySelectorAll(".sitetable.nestedlisting > .comment"));
-  var scrollTo = getNextParent(pos, direction, parentComments);
+  var scrollTo = getNextParent(direction, parentComments);
   if (!scrollTo)
     return;
 
@@ -85,11 +86,11 @@ chrome.storage.sync.get({
   document.body.appendChild(container);
 
   document.getElementById("redditNavUp").addEventListener("click", function() {
-    goToNextParent(window.scrollY, directions.UP);
+    goToNextParent(directions.UP);
   });
 
   document.getElementById("redditNavDown").addEventListener("click", function() {
-    goToNextParent(window.scrollY, directions.DOWN);
+    goToNextParent(directions.DOWN);
   });
 });
 
@@ -98,7 +99,7 @@ document.addEventListener("keydown", function(event) {
     return;
 
   if (event.keyCode == 81)
-    goToNextParent(window.scrollY, directions.UP);
+    goToNextParent(directions.UP);
   else if (event.keyCode == 87)
-    goToNextParent(window.scrollY, directions.DOWN);
+    goToNextParent(directions.DOWN);
 });
