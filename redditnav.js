@@ -5,7 +5,7 @@ UP = 0
 DOWN = 1
 
 function goToNextParent(pos, direction) {
-  var parentComments = $(".sitetable.nestedlisting").children(".comment").toArray();
+  var parentComments = $(".sitetable.nestedlisting").children(".comment:not(.deleted)").toArray();
   parentComments = parentComments.map(function(commentElement){
     return $(commentElement);
   });
