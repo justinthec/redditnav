@@ -1,12 +1,9 @@
 a.mfb-component__button--main, a.mfb-component__button--child {
   border-radius: 50% !important;
-}
-
-.ion-chevron-down:before {
   color: white;
 }
 
-.ion-chevron-up:before {
+.ion-chevron-down:before, .ion-chevron-up:before, .ion-compass:before {
   color: white;
 }
 
