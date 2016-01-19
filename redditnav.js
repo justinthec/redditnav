@@ -63,7 +63,7 @@ function goToNextParent(direction) {
     return;
 
   animateScrollTo(getPos(scrollTo), 800);
-  Array.from(scrollTo.querySelectorAll(".entry")).forEach((element) => element.click());
+  scrollTo.querySelector(".entry").click();
 }
 
 chrome.storage.sync.get({
