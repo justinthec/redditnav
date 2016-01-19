@@ -5,7 +5,7 @@ UP = 0
 DOWN = 1
 
 function goToNextParent(pos, direction) {
-  var parentComments = $(".sitetable.nestedlisting").children(".comment").toArray();
+  var parentComments = $(".sitetable.nestedlisting").children(".comment:not(.deleted)").toArray();
   parentComments = parentComments.map(function(commentElement){
     return $(commentElement);
   });
@@ -67,14 +67,7 @@ function getPos($node) {
   return Math.round($node.offset().top);
 }
 
-function findHighestZIndex() {
-  var elems = $(".titlebox");
-  var highest = parseInt($(".titlebox").children()[1].style.zIndex);
-  return highest;
-}
-
 function setUpButton($floatingButton, items) {
-  $floatingButton.css('z-index', findHighestZIndex() + 1);
   $floatingButton.find('.mfb-component__button--main, .mfb-component__button--child').css('background-color', items.color);
   var buttonClass;
   switch(items.buttonPos){
