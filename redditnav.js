@@ -10,16 +10,16 @@ function goToNextParent(pos, direction) {
     return $(commentElement);
   });
 
-  var $scrollTo = getNextParent(Math.ceil(pos), direction, parentComments);
+  pos = (direction === DOWN) ? Math.ceil(pos) : Math.floor(pos);
+  var $scrollTo = getNextParent(pos, direction, parentComments);
   if($scrollTo == null){
     return;
   }
-  console.log("to: " + getPos($scrollTo) + ", from: " + Math.ceil(pos)  + ", " + direction)
 
+  $scrollTo.children(".entry").click();
   $("body, html").animate({
       scrollTop: getPos($scrollTo)
   });
-  $scrollTo.children(".entry").click();
 }
 
 function getNextParent(pos, direction, parentComments) {
@@ -115,31 +115,26 @@ $(function() {
     $("body").append($floatingButton);
     $("a#redditNavUp").click(function() {
       var pos = $(window).scrollTop();
-      console.log(pos);
       goToNextParent(pos, UP);
     });
     $("a#redditNavDown").click(function() {
       var pos = $(window).scrollTop();
-      console.log(pos);
       goToNextParent(pos, DOWN);
     });
   });
 
-
-
   $(document).keydown(function(e) {
-	if (!$(e.target).is('input, textarea')) {
-		var pos = $(window).scrollTop();
-		console.log(pos);
+    if (!$(e.target).is('input, textarea')) {
+      var pos = $(window).scrollTop();
 
-		if(e.keyCode == 81){
-			e.preventDefault();
-			goToNextParent(pos, UP);
-		}
-		else if (e.keyCode == 87){
-			e.preventDefault();
-			goToNextParent(pos, DOWN);
-		}
-	}
+      if(e.keyCode == 81){
+        e.preventDefault();
+        goToNextParent(pos, UP);
+      }
+      else if (e.keyCode == 87){
+        e.preventDefault();
+        goToNextParent(pos, DOWN);
+      }
+    }
   });
 });
