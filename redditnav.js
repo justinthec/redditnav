@@ -57,7 +57,7 @@ function getNextParent(direction, parentComments) {
 }
 
 function goToNextParent(direction) {
-  var parentComments = Array.from(document.querySelectorAll(".sitetable.nestedlisting > .comment"));
+  var parentComments = Array.from(document.querySelectorAll(".sitetable.nestedlisting > .comment:not(.deleted)"));
   var scrollTo = getNextParent(direction, parentComments);
   if (!scrollTo)
     return;
