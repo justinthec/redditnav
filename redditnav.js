@@ -90,7 +90,7 @@ $(function() {
     buttonPos: 'right'
   }, function(items) {
     $("head").append('<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">');
-    var $floatingButton = $('<ul class="mfb-component--br mfb-slidein-spring" data-mfb-toggle="hover">\
+    var $floatingButton = $('<ul class="mfb-component--br mfb-slidein-spring" data-mfb-toggle="hover" style="z-index:999">\
       <li class="mfb-component__wrap">\
       <a id="redditNavDown" data-mfb-label="Next Thread (W)" class="mfb-component__button--main">\
         <i class="mfb-component__main-icon--resting ion-compass"></i>\
