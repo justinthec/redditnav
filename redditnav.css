@@ -47,8 +47,7 @@
   display: block;
   height: 56px;
   width: 56px;
-  background-color: currentColor;
-  border-radius: 50%;
+  border-radius: 50% !important;
   box-shadow: rgba(0, 0, 0, 0.15) 0 0 4px,
               rgba(0, 0, 0, 0.25) 0 4px 8px;
   cursor: pointer;

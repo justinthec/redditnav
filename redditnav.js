@@ -1,8 +1,8 @@
-var directions = {
-  UP: "up",
-  DOWN: "down"
+const directions = {
+  UP: 'up',
+  DOWN: 'down'
 };
-var scrolling = false;
+let scrolling = false;
 
 // http://gizma.com/easing/#quad3
 function easeInOutQuad(n,u,e,t){return n/=t/2,1>n?n*n*(e/2)+u:(--n,(n*(n-2)-1)*(-e/2)+u)}
@@ -11,15 +11,15 @@ function animateScrollTo(position, duration) {
   if (scrolling)
     return;
 
-  var start = null;
-  var scrollY = window.scrollY;
+  let start = null;
+  const scrollY = window.scrollY;
   function step(timestamp) {
     scrolling = true;
     if (!start)
       start = timestamp;
 
-    var progress = timestamp - start;
-    var top = easeInOutQuad(progress, scrollY, position - scrollY, duration);
+    let progress = timestamp - start;
+    const top = easeInOutQuad(progress, scrollY, position - scrollY, duration);
     window.scroll(0, top);
     if (progress < duration)
       window.requestAnimationFrame(step);
@@ -31,75 +31,84 @@ function animateScrollTo(position, duration) {
   step(performance.now());
 }
 
-function getPos(node) {
-  return Math.round(node.getBoundingClientRect().top + document.body.scrollTop);
+function getNodePos(node, direction) {
+  const topOfNode = node.getBoundingClientRect().top + document.body.scrollTop;
+  if (direction === directions.DOWN)
+    return Math.floor(topOfNode);
+  else
+    return Math.ceil(topOfNode);
 }
 
 function getNextParent(direction, parentComments) {
-  var pos = Math.round(window.scrollY);
-  var currentIndex = 0;
-  for (var i = 0; i < parentComments.length; ++i) {
-    var parentPos = getPos(parentComments[i]);
-    if (pos > parentPos || (direction === directions.DOWN && pos === parentPos))
+  const currentPos = direction === directions.DOWN ? Math.ceil(window.scrollY) : Math.floor(window.scrollY);
+  let targetIndex = 0;
+  for (let i = 0; i < parentComments.length; ++i) {
+    const commentPos = getNodePos(parentComments[i], direction);
+    if (currentPos > commentPos || (direction === directions.DOWN && currentPos === commentPos))
       continue;
 
-    currentIndex = i;
+    targetIndex = i;
     break;
   }
 
   if (direction === directions.UP)
-    return currentIndex > 0 ? parentComments[currentIndex - 1] : null;
+    return targetIndex > 0 ? parentComments[targetIndex - 1] : null;
 
   if (direction === directions.DOWN)
-    return currentIndex < parentComments.length - 1 ? parentComments[currentIndex] : null;
+    return targetIndex <= parentComments.length - 1 ? parentComments[targetIndex] : null;
 
   return null;
 }
 
 function goToNextParent(direction) {
-  var parentComments = Array.from(document.querySelectorAll(".sitetable.nestedlisting > .comment:not(.deleted)"));
-  var scrollTo = getNextParent(direction, parentComments);
-  if (!scrollTo)
+  const parentComments = Array.from(document.querySelectorAll('.sitetable.nestedlisting > .comment:not(.deleted)'));
+  const targetComment = getNextParent(direction, parentComments);
+  if (!targetComment)
     return;
 
-  animateScrollTo(getPos(scrollTo), 800);
-  scrollTo.querySelector(".entry").click();
+  targetComment.querySelector('.entry').click();
+  animateScrollTo(getNodePos(targetComment), 400);
 }
 
 chrome.storage.sync.get({
   color: '#FF5722',
   buttonPos: 'right'
-}, function(items) {
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.open("GET", chrome.extension.getURL("redditnav.html"), false);
+}, (items) => {
+  const xmlhttp = new XMLHttpRequest();
+  xmlhttp.open('GET', chrome.extension.getURL('redditnav.html'), false);
   xmlhttp.send();
 
-  var container = (new DOMParser()).parseFromString(xmlhttp.responseText, "text/html").getElementById("redditNavContainer");
-  Array.from(container.getElementsByTagName("a")).forEach((element) => element.style.color = items.color);
-  if (items.buttonPos === "hide")
-    container.classList.add("hide");
-  else if (items.buttonPos === "left")
-    container.classList.add("left");
-  else // if (items.buttonPos === "right")
-    container.classList.add("right");
+  const container = (new DOMParser()).parseFromString(xmlhttp.responseText, 'text/html').getElementById('redditNavContainer');
+  Array.from(container.getElementsByTagName('a')).forEach((element) => {
+    element.style.backgroundColor = items.color;
+  });
+  Array.from(container.getElementsByTagName('path')).forEach((element) => {
+    element.style.color = items.color;
+  });
+  if (items.buttonPos === 'hide')
+    container.classList.add('hide');
+  else if (items.buttonPos === 'left')
+    container.classList.add('left');
+  else
+    container.classList.add('right');
 
   document.body.appendChild(container);
 
-  document.getElementById("redditNavUp").addEventListener("click", function() {
+  document.getElementById('redditNavUp').addEventListener('click', () => {
     goToNextParent(directions.UP);
   });
 
-  document.getElementById("redditNavDown").addEventListener("click", function() {
+  document.getElementById('redditNavDown').addEventListener('click', () => {
     goToNextParent(directions.DOWN);
   });
 });
 
-document.addEventListener("keydown", function(event) {
+document.addEventListener('keydown', (event) => {
   if (event.target.value)
     return;
 
-  if (event.keyCode == 81)
+  if (event.keyCode === 81) // Q
     goToNextParent(directions.UP);
-  else if (event.keyCode == 87)
+  else if (event.keyCode === 87) // W
     goToNextParent(directions.DOWN);
 });
