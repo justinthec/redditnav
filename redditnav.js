@@ -1,133 +1,105 @@
-// Copyright (c) 2014 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-UP = 0
-DOWN = 1
+var directions = {
+  UP: "up",
+  DOWN: "down"
+};
+var scrolling = false;
 
-function goToNextParent(pos, direction) {
-  var parentComments = $(".sitetable.nestedlisting").children(".comment:not(.deleted)").toArray();
-  parentComments = parentComments.map(function(commentElement){
-    return $(commentElement);
-  });
+// http://gizma.com/easing/#quad3
+function easeInOutQuad(n,u,e,t){return n/=t/2,1>n?n*n*(e/2)+u:(--n,(n*(n-2)-1)*(-e/2)+u)}
 
-  pos = (direction === DOWN) ? Math.ceil(pos) : Math.floor(pos);
-  var $scrollTo = getNextParent(pos, direction, parentComments);
-  if($scrollTo == null){
+function animateScrollTo(position, duration) {
+  if (scrolling)
     return;
-  }
 
-  $scrollTo.children(".entry").click();
-  $("body, html").animate({
-      scrollTop: getPos($scrollTo)
-  });
-}
+  var start = null;
+  var scrollY = window.scrollY;
+  function step(timestamp) {
+    scrolling = true;
+    if (!start)
+      start = timestamp;
 
-function getNextParent(pos, direction, parentComments) {
-  if(pos < getPos(parentComments[0])){
-    if(direction == DOWN)
-      return parentComments[0];
-    else
-      return null;
-  }
-
-  if(pos > getPos(parentComments[parentComments.length-1])){
-    if(direction == UP)
-      return parentComments[parentComments.length-1];
-    else
-      return null;
-  }
-
-  if(pos == getPos(parentComments[parentComments.length-1])){
-    if(direction == UP)
-      return parentComments[parentComments.length-2];
-    else
-      return null;
-  }
-
-  for(var i = 0; i < parentComments.length - 1; i++){
-    if(getPos(parentComments[i]) <= pos && pos < getPos(parentComments[i+1])){
-      if(direction == UP){
-        if(getPos(parentComments[i]) == pos && i > 0){
-          return parentComments[i-1];
-        }
-        else{
-          return parentComments[i];
-        }
-      }
-      else if(direction == DOWN) {
-        return parentComments[i+1];
-      }
+    var progress = timestamp - start;
+    var top = easeInOutQuad(progress, scrollY, position - scrollY, duration);
+    window.scroll(0, top);
+    if (progress < duration)
+      window.requestAnimationFrame(step);
+    else {
+      window.scroll(0, position);
+      scrolling = false;
     }
   }
+  step(performance.now());
+}
+
+function getPos(node) {
+  return Math.round(node.getBoundingClientRect().top + document.body.scrollTop);
+}
+
+function getNextParent(direction, parentComments) {
+  var pos = Math.round(window.scrollY);
+  var currentIndex = 0;
+  for (var i = 0; i < parentComments.length; ++i) {
+    var parentPos = getPos(parentComments[i]);
+    if (pos > parentPos || (direction === directions.DOWN && pos === parentPos))
+      continue;
+
+    currentIndex = i;
+    break;
+  }
+
+  if (direction === directions.UP)
+    return currentIndex > 0 ? parentComments[currentIndex - 1] : null;
+
+  if (direction === directions.DOWN)
+    return currentIndex < parentComments.length - 1 ? parentComments[currentIndex] : null;
 
   return null;
 }
 
-function getPos($node) {
-  return Math.round($node.offset().top);
+function goToNextParent(direction) {
+  var parentComments = Array.from(document.querySelectorAll(".sitetable.nestedlisting > .comment:not(.deleted)"));
+  var scrollTo = getNextParent(direction, parentComments);
+  if (!scrollTo)
+    return;
+
+  animateScrollTo(getPos(scrollTo), 800);
+  scrollTo.querySelector(".entry").click();
 }
 
-function setUpButton($floatingButton, items) {
-  $floatingButton.find('.mfb-component__button--main, .mfb-component__button--child').css('background-color', items.color);
-  var buttonClass;
-  switch(items.buttonPos){
-    case "right":
-      buttonClass = "mfb-component--br mfb-slidein-spring";
-      break;
-    case "left":
-      buttonClass = "mfb-component--bl mfb-slidein-spring";
-      break;
-    case "hide":
-      buttonClass = "mfb-component--hide";
-      break;
-  }
-  $floatingButton.attr('class', buttonClass);
-}
+chrome.storage.sync.get({
+  color: '#FF5722',
+  buttonPos: 'right'
+}, function(items) {
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", chrome.extension.getURL("redditnav.html"), false);
+  xmlhttp.send();
 
-$(function() {
-  chrome.storage.sync.get({
-    color: '#FF5722',
-    buttonPos: 'right'
-  }, function(items) {
-    $("head").append('<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">');
-    var $floatingButton = $('<ul class="mfb-component--br mfb-slidein-spring" data-mfb-toggle="hover">\
-      <li class="mfb-component__wrap">\
-      <a id="redditNavDown" data-mfb-label="Next Thread (W)" class="mfb-component__button--main">\
-        <i class="mfb-component__main-icon--resting ion-compass"></i>\
-        <i class="mfb-component__main-icon--active ion-chevron-down"></i>\
-      </a>\
-      <ul class="mfb-component__list">\
-        <li>\
-          <a id="redditNavUp" data-mfb-label="Previous Thread (Q)" class="mfb-component__button--child">\
-            <i class="mfb-component__child-icon ion-chevron-up"></i>\
-          </a>\
-        </li>\
-      </ul>\
-    </li></ul>');
-    setUpButton($floatingButton, items);
-    $("body").append($floatingButton);
-    $("a#redditNavUp").click(function() {
-      var pos = $(window).scrollTop();
-      goToNextParent(pos, UP);
-    });
-    $("a#redditNavDown").click(function() {
-      var pos = $(window).scrollTop();
-      goToNextParent(pos, DOWN);
-    });
+  var container = (new DOMParser()).parseFromString(xmlhttp.responseText, "text/html").getElementById("redditNavContainer");
+  Array.from(container.getElementsByTagName("a")).forEach((element) => element.style.color = items.color);
+  if (items.buttonPos === "hide")
+    container.classList.add("hide");
+  else if (items.buttonPos === "left")
+    container.classList.add("left");
+  else // if (items.buttonPos === "right")
+    container.classList.add("right");
+
+  document.body.appendChild(container);
+
+  document.getElementById("redditNavUp").addEventListener("click", function() {
+    goToNextParent(directions.UP);
   });
 
-  $(document).keydown(function(e) {
-    if (!$(e.target).is('input, textarea')) {
-      var pos = $(window).scrollTop();
-
-      if(e.keyCode == 81){
-        e.preventDefault();
-        goToNextParent(pos, UP);
-      }
-      else if (e.keyCode == 87){
-        e.preventDefault();
-        goToNextParent(pos, DOWN);
-      }
-    }
+  document.getElementById("redditNavDown").addEventListener("click", function() {
+    goToNextParent(directions.DOWN);
   });
+});
+
+document.addEventListener("keydown", function(event) {
+  if (event.target.value)
+    return;
+
+  if (event.keyCode == 81)
+    goToNextParent(directions.UP);
+  else if (event.keyCode == 87)
+    goToNextParent(directions.DOWN);
 });

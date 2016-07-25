@@ -1,42 +1,48 @@
 var toastActive = false;
 function triggerToast () {
-  if (!toastActive) {
-    toastActive = true;
-    Materialize.toast('Refresh to see changes!', 4000, '', function() {
-      toastActive = false
-    });
-  }
+  if (toastActive)
+    return;
+
+  toastActive = true;
+  Materialize.toast('Refresh to see changes!', 4000, '', function() {
+    toastActive = false
+  });
 }
 
-$(function() {
-  $("button.color").click(function() {
-    var color = $(this).css('background-color');
+Array.from(document.querySelectorAll("button.color")).forEach(function(button) {
+  button.addEventListener("click", function(event) {
     chrome.storage.sync.set({
-      color: color
+      color: window.getComputedStyle(button).backgroundColor
     }, function() {
       triggerToast();
     });
   });
+});
 
-  $('input[type=radio]').on('change', function() {
-    var buttonPos = $('input[name="pos"]:checked').val();
+Array.from(document.querySelectorAll("input[type=radio]")).forEach(function(input) {
+  input.addEventListener("change", function(event) {
+    if (!input.checked)
+      return;
+
     chrome.storage.sync.set({
-      "buttonPos": buttonPos
+      buttonPos: input.value
     }, function() {
       triggerToast();
     });
   });
+});
 
-  $('a[href="#ButtonTab"').on('click', function() {
-    chrome.storage.sync.get({
-      buttonPos: 'right'
-    }, function(items) {
-      $('#' + items.buttonPos + '').prop('checked', true);
-    });
+document.querySelector("a[href=\"#ButtonTab\"]").addEventListener("click", function(event) {
+  chrome.storage.sync.get({
+    buttonPos: 'right'
+  }, function(items) {
+    document.querySelector(`#${items.buttonPos}`).checked = true;
   });
+});
 
-  $('a.js-author-link').on('click', function() {
-    chrome.tabs.create({url: $(this).attr('href')});
+Array.from(document.querySelectorAll("a.js-author-link")).forEach(function(link) {
+  link.addEventListener("click", function(event) {
+    chrome.tabs.create({url: link.href});
     return false;
   });
 });
