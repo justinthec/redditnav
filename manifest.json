@@ -17,11 +17,12 @@
     "permissions": [
         "storage"
     ],
+    "web_accessible_resources": ["redditnav.html"],
     "content_scripts": [
         {
             "matches": ["*://*.reddit.com/r/*/comments/*"],
-            "css": ["vendor/mfb/mfb.min.css", "redditnav.css"],
-            "js": ["vendor/jquery/jquery.js", "redditnav.js"]
+            "css": ["redditnav.css"],
+            "js": ["redditnav.js"]
         }
     ]
 }
