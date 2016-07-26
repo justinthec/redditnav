@@ -10,23 +10,33 @@
       <img src="icon128.png" class="header-icon"> <h3 class="header-text">Reddit<span class="nav-text">Nav</span></h3>
     </div>
     <ul class="tabs">
-      <li class="tab"><a class="active" href="#ColorTab">Color</a></li>
-      <li class="tab"><a href="#ButtonTab">Button</a></li>
+      <li class="tab"><a class="active" href="#ButtonTab">Button</a></li>
+      <li class="tab"><a href="#ScrollTab">Scroll</a></li>
       <li class="tab"><a href="#AboutTab">About</a></li>
     </ul>
-    <div id="ColorTab" class="section section--body">
-      <div class="colors-container">
-        <button class="waves-effect waves-light color color--red"></button>
-        <button class="waves-effect waves-light color color--orange"></button>
-        <button class="waves-effect waves-light color color--yellow"></button>
-        <button class="waves-effect waves-light color color--green"></button>
-        <button class="waves-effect waves-light color color--grey"></button>
-        <button class="waves-effect waves-light color color--purple"></button>
-        <button class="waves-effect waves-light color color--blue"></button>
-        <button class="waves-effect waves-light color color--cyan"></button>
+    <div id="ScrollTab" class="section section--body">
+      <div class="scroll-container">
+        <input name="speed" type="radio" id="slow" value="2"/>
+        <label for="slow">Slow</label><br>
+        <input name="speed" type="radio" id="medium" value="1"/>
+        <label for="medium">Medium</label><br>
+        <input name="speed" type="radio" id="fast" value="0.5"/>
+        <label for="fast">Fast</label><br>
+        <input name="speed" type="radio" id="instant" value="0"/> 
+        <label for="instant">Instant</label>
       </div>
     </div>
     <div id="ButtonTab" class="section section--body">
+      <div class="colors-container">
+        <button id="rgb(244, 67, 54)" class="waves-effect waves-light color color--red"></button>
+        <button id="rgb(255, 87, 34)" class="waves-effect waves-light color color--orange"></button>
+        <button id="rgb(255, 193, 7)" class="waves-effect waves-light color color--yellow"></button>
+        <button id="rgb(76, 175, 80)" class="waves-effect waves-light color color--green"></button>
+        <button id="rgb(96, 125, 139)" class="waves-effect waves-light color color--grey"></button>
+        <button id="rgb(103, 58, 183)" class="waves-effect waves-light color color--purple"></button>
+        <button id="rgb(33, 150, 243)" class="waves-effect waves-light color color--blue"></button>
+        <button id="rgb(0, 188, 212)" class="waves-effect waves-light color color--cyan"></button>
+      </div>
       <form action="#">
         <p>
           <input name="pos" type="radio" id="left" value="left" />

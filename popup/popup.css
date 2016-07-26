@@ -58,6 +58,13 @@ body {
   box-shadow: 2px 10px 49px 0px rgba(0,0,0,0.4);
 }
 
+.colors-container .activeColor {
+  z-index: 3;
+  -webkit-box-shadow: 2px 10px 49px 0px rgba(0,0,0,0.4);
+  -moz-box-shadow: 2px 10px 49px 0px rgba(0,0,0,0.4);
+  box-shadow: 2px 10px 49px 0px rgba(0,0,0,0.4);
+}
+
 .colors-container .color.color--red {
   background-color: #F44336;
 }

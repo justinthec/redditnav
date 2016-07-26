@@ -9,17 +9,29 @@ function triggerToast () {
   });
 }
 
+window.addEventListener('load', (event) => {
+  chrome.storage.sync.get({
+    buttonPos: 'right',
+    color: 'F44336'
+  }, (items) => {
+    document.querySelector(`#${items.buttonPos}`).checked = true;
+    document.getElementById(`${items.color}`).classList.add("activeColor");
+  });
+});
+
 Array.from(document.querySelectorAll('button.color')).forEach((button) => {
   button.addEventListener('click', (event) => {
     chrome.storage.sync.set({
       color: window.getComputedStyle(button).backgroundColor
     }, () => {
+      document.querySelector(".activeColor").classList.remove("activeColor");
+      button.classList.add("activeColor");
       triggerToast();
     });
   });
 });
 
-Array.from(document.querySelectorAll('input[type=radio]')).forEach((input) => {
+Array.from(document.querySelectorAll('input[name=pos]')).forEach((input) => {
   input.addEventListener('change', (event) => {
     if (!input.checked)
       return;
@@ -32,11 +44,24 @@ Array.from(document.querySelectorAll('input[type=radio]')).forEach((input) => {
   });
 });
 
-document.querySelector('a[href="#ButtonTab"]').addEventListener('click', (event) => {
+document.querySelector('a[href="#ScrollTab"]').addEventListener('click', (event) => {
   chrome.storage.sync.get({
-    buttonPos: 'right'
+    scrollSpeed: '1'
   }, (items) => {
-    document.querySelector(`#${items.buttonPos}`).checked = true;
+    document.querySelector(`input[value='${items.scrollSpeed}']`).checked = true;
+  });
+});
+
+Array.from(document.querySelectorAll('input[name=speed]')).forEach((input) => {
+  input.addEventListener('change', (event) => {
+    if (!input.checked)
+      return;
+
+    chrome.storage.sync.set({
+      scrollSpeed: input.value
+    }, () => {
+      triggerToast();
+    });
   });
 });
 
