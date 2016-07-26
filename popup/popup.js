@@ -9,13 +9,24 @@ function triggerToast () {
   });
 }
 
+const colorMap = {
+  "rgb(244, 67, 54)" : "red",
+  "rgb(255, 87, 34)" : "orange",
+  "rgb(255, 193, 7)" : "yellow",
+  "rgb(76, 175, 80" : "green",
+  "rgb(96, 125, 139)" : "grey",
+  "rgb(103, 58, 183)" : "purple",
+  "rgb(33, 150, 243)" : "blue",
+  "rgb(0, 188, 212)" : "cyan"
+};
+
 window.addEventListener('load', (event) => {
   chrome.storage.sync.get({
     buttonPos: 'right',
-    color: 'F44336'
+    color: 'red'
   }, (items) => {
-    document.querySelector(`#${items.buttonPos}`).checked = true;
-    document.getElementById(`${items.color}`).classList.add("activeColor");
+    document.getElementById(`${items.buttonPos}`).checked = true;
+    document.querySelector(`.color--${colorMap[items.color]}`).classList.add("activeColor");
   });
 });
 
@@ -48,7 +59,7 @@ document.querySelector('a[href="#ScrollTab"]').addEventListener('click', (event)
   chrome.storage.sync.get({
     scrollSpeed: '1'
   }, (items) => {
-    document.querySelector(`input[value='${items.scrollSpeed}']`).checked = true;
+    document.querySelector(`input[name='speed'][value='${items.scrollSpeed}']`).checked = true;
   });
 });
 
