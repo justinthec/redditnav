@@ -8,9 +8,6 @@ let scrolling = false;
 function easeInOutQuad(n,u,e,t){return n/=t/2,1>n?n*n*(e/2)+u:(--n,(n*(n-2)-1)*(-e/2)+u)}
 
 function animateScrollTo(position, duration) {
-  if (scrolling)
-    return;
-
   let start = null;
   const scrollY = window.scrollY;
   function step(timestamp) {
@@ -61,7 +58,7 @@ function getNextParent(direction, parentComments) {
 }
 
 function goToNextParent(direction) {
-  if(scrolling)
+  if  (scrolling)
     return;
   const parentComments = Array.from(document.querySelectorAll('.sitetable.nestedlisting > .comment:not(.deleted)'));
   const targetComment = getNextParent(direction, parentComments);
