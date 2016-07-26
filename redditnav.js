@@ -61,6 +61,8 @@ function getNextParent(direction, parentComments) {
 }
 
 function goToNextParent(direction) {
+  if(scrolling)
+    return;
   const parentComments = Array.from(document.querySelectorAll('.sitetable.nestedlisting > .comment:not(.deleted)'));
   const targetComment = getNextParent(direction, parentComments);
   if (!targetComment)
