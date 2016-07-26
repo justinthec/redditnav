@@ -2,7 +2,14 @@ const directions = {
   UP: 'up',
   DOWN: 'down'
 };
+const speeds = {
+  SLOW: 2,
+  MEDIUM: 1,
+  FAST: 0.5,
+  INSTANT: 0
+}
 let scrolling = false;
+let scrollSpeed = speeds.MEDIUM;
 
 // http://gizma.com/easing/#quad3
 function easeInOutQuad(n,u,e,t){return n/=t/2,1>n?n*n*(e/2)+u:(--n,(n*(n-2)-1)*(-e/2)+u)}
@@ -66,12 +73,13 @@ function goToNextParent(direction) {
     return;
 
   targetComment.querySelector('.entry').click();
-  animateScrollTo(getNodePos(targetComment), 400);
+  animateScrollTo(getNodePos(targetComment), 400 * scrollSpeed);
 }
 
 chrome.storage.sync.get({
   color: '#FF5722',
-  buttonPos: 'right'
+  buttonPos: 'right',
+  scrollSpeed: '1'
 }, (items) => {
   const xmlhttp = new XMLHttpRequest();
   xmlhttp.open('GET', chrome.extension.getURL('redditnav.html'), false);
@@ -92,6 +100,8 @@ chrome.storage.sync.get({
     container.classList.add('right');
 
   document.body.appendChild(container);
+
+  scrollSpeed = parseFloat(items.scrollSpeed);
 
   document.getElementById('redditNavUp').addEventListener('click', () => {
     goToNextParent(directions.UP);

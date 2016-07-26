@@ -10,11 +10,23 @@
       <img src="icon128.png" class="header-icon"> <h3 class="header-text">Reddit<span class="nav-text">Nav</span></h3>
     </div>
     <ul class="tabs">
-      <li class="tab"><a class="active" href="#ColorTab">Color</a></li>
-      <li class="tab"><a href="#ButtonTab">Button</a></li>
+      <li class="tab"><a class="active" href="#ButtonTab">Button</a></li>
+      <li class="tab"><a href="#ScrollTab">Scroll</a></li>
       <li class="tab"><a href="#AboutTab">About</a></li>
     </ul>
-    <div id="ColorTab" class="section section--body">
+    <div id="ScrollTab" class="section section--body">
+      <div class="scroll-container">
+        <input name="speed" type="radio" id="slow" value="2"/>
+        <label for="slow">Slow</label><br>
+        <input name="speed" type="radio" id="medium" value="1"/>
+        <label for="medium">Medium</label><br>
+        <input name="speed" type="radio" id="fast" value="0.5"/>
+        <label for="fast">Fast</label><br>
+        <input name="speed" type="radio" id="instant" value="0"/> 
+        <label for="instant">Instant</label>
+      </div>
+    </div>
+    <div id="ButtonTab" class="section section--body">
       <div class="colors-container">
         <button class="waves-effect waves-light color color--red"></button>
         <button class="waves-effect waves-light color color--orange"></button>
@@ -25,8 +37,6 @@
         <button class="waves-effect waves-light color color--blue"></button>
         <button class="waves-effect waves-light color color--cyan"></button>
       </div>
-    </div>
-    <div id="ButtonTab" class="section section--body">
       <form action="#">
         <p>
           <input name="pos" type="radio" id="left" value="left" />
