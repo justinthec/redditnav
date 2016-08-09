@@ -113,7 +113,7 @@ chrome.storage.sync.get({
 });
 
 document.addEventListener('keydown', (event) => {
-  if (event.target.value)
+  if (event.target.value != null)
     return;
 
   if (event.keyCode === 81) // Q
