@@ -2,7 +2,7 @@
     "manifest_version": 2,
 
     "name": "Reddit Nav",
-    "description": "This extension allows you to easily scroll through comment threads on Reddit",
+    "description": "Effortlessly scroll through comment threads on Reddit.",
     "version": "1.1.1",
 
     "browser_action": {
