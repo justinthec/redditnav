@@ -36,7 +36,9 @@ function animateScrollTo(position, duration) {
 }
 
 function getNodePos(node, direction) {
-  const topOfNode = node.getBoundingClientRect().top + document.body.scrollTop;
+  const topOfNode = node.getBoundingClientRect().top +
+    (document.documentElement.scrollTop || document.body.scrollTop || window.scrollY);
+
   if (direction === directions.DOWN)
     return Math.floor(topOfNode);
   else
