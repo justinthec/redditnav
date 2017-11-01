@@ -2,12 +2,14 @@ const directions = {
   UP: 'up',
   DOWN: 'down'
 };
+
 const speeds = {
   SLOW: 2,
   MEDIUM: 1,
   FAST: 0.5,
   INSTANT: 0
-}
+};
+
 let scrolling = false;
 let scrollSpeed = speeds.MEDIUM;
 
