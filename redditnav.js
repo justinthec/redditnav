@@ -52,18 +52,8 @@ function getNextParent(direction, parentComments) {
     if (currentPos > commentPos || (direction === directions.DOWN && currentPos === commentPos))
       continue;
 
-  for (var i = 0; i < parentComments.length - 1; i++) {
-    if (getPos(parentComments[i]) <= pos && pos < getPos(parentComments[i + 1])) {
-      if (direction === UP) {
-        if (getPos(parentComments[i]) === pos && i > 0) {
-          return parentComments[i - 1];
-        } else{
-          return parentComments[i];
-        }
-      } else if (direction === DOWN) {
-        return parentComments[i + 1];
-      }
-    }
+    targetIndex = i;
+    break;
   }
 
   if (direction === directions.UP)
