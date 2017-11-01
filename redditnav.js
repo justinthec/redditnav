@@ -2,12 +2,14 @@ const directions = {
   UP: 'up',
   DOWN: 'down'
 };
+
 const speeds = {
   SLOW: 2,
   MEDIUM: 1,
   FAST: 0.5,
   INSTANT: 0
-}
+};
+
 let scrolling = false;
 let scrollSpeed = speeds.MEDIUM;
 
@@ -39,10 +41,7 @@ function getNodePos(node, direction) {
   const topOfNode = node.getBoundingClientRect().top +
     (document.documentElement.scrollTop || document.body.scrollTop || window.scrollY);
 
-  if (direction === directions.DOWN)
-    return Math.floor(topOfNode);
-  else
-    return Math.ceil(topOfNode);
+  return (direction === directions.DOWN) ? Math.floor(topOfNode) : Math.ceil(topOfNode);
 }
 
 function getNextParent(direction, parentComments) {
