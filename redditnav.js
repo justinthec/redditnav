@@ -55,7 +55,7 @@ function getNextParent(direction, parentComments) {
   for (var i = 0; i < parentComments.length - 1; i++) {
     if (getPos(parentComments[i]) <= pos && pos < getPos(parentComments[i + 1])) {
       if (direction === UP) {
-        if(getPos(parentComments[i]) === pos && i > 0){
+        if (getPos(parentComments[i]) === pos && i > 0) {
           return parentComments[i - 1];
         } else{
           return parentComments[i];
@@ -88,7 +88,7 @@ function goToNextParent(direction) {
 }
 
 chrome.storage.sync.get({
-    color: '#FF5722',
+  color: '#FF5722',
   buttonPos: 'right',
   scrollSpeed: '1'
 }, (items) => {
