@@ -26,4 +26,8 @@
  
  ![image](http://i.imgur.com/16SGwIR.png?1)
 
+ - Set your preferred scroll speed:
+ 
+ ![image](http://i.imgur.com/qYLbK3o.png)
+
 #### [Get RedditNav](https://chrome.google.com/webstore/detail/reddit-nav/dpkijnoebmekoiafbkledpjhkpgllkfe)

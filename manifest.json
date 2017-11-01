@@ -2,8 +2,8 @@
     "manifest_version": 2,
 
     "name": "Reddit Nav",
-    "description": "This extension allows you to easily scroll through comment threads on Reddit",
-    "version": "1.0.4",
+    "description": "Effortlessly scroll through comment threads on Reddit.",
+    "version": "1.1.2",
 
     "browser_action": {
         "default_icon": "popup/icon128.png",
@@ -17,11 +17,12 @@
     "permissions": [
         "storage"
     ],
+    "web_accessible_resources": ["redditnav.html"],
     "content_scripts": [
         {
             "matches": ["*://*.reddit.com/r/*/comments/*"],
-            "css": ["vendor/mfb/mfb.min.css", "redditnav.css"],
-            "js": ["vendor/jquery/jquery.js", "redditnav.js"]
+            "css": ["redditnav.css"],
+            "js": ["redditnav.js"]
         }
     ]
 }

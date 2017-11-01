@@ -1,42 +1,84 @@
-var toastActive = false;
+let toastActive = false;
 function triggerToast () {
-  if (!toastActive) {
-    toastActive = true;
-    Materialize.toast('Refresh to see changes!', 4000, '', function() {
-      toastActive = false
-    });
-  }
+  if (toastActive)
+    return;
+
+  toastActive = true;
+  Materialize.toast('Refresh to see changes!', 4000, '', () => {
+    toastActive = false;
+  });
 }
 
-$(function() {
-  $("button.color").click(function() {
-    var color = $(this).css('background-color');
+const colorMap = {
+  'rgb(244, 67, 54)' : 'red',
+  'rgb(255, 87, 34)' : 'orange',
+  'rgb(255, 193, 7)' : 'yellow',
+  'rgb(76, 175, 80)' : 'green',
+  'rgb(96, 125, 139)' : 'grey',
+  'rgb(103, 58, 183)' : 'purple',
+  'rgb(33, 150, 243)' : 'blue',
+  'rgb(0, 188, 212)' : 'cyan'
+};
+
+window.addEventListener('load', (event) => {
+  chrome.storage.sync.get({
+    buttonPos: 'right',
+    color: 'rgb(255, 87, 34)'
+  }, (items) => {
+    document.getElementById(`${items.buttonPos}`).checked = true;
+    document.querySelector(`.color--${colorMap[items.color]}`).classList.add('activeColor');
+  });
+});
+
+Array.from(document.querySelectorAll('button.color')).forEach((button) => {
+  button.addEventListener('click', (event) => {
     chrome.storage.sync.set({
-      color: color
-    }, function() {
+      color: window.getComputedStyle(button).backgroundColor
+    }, () => {
+      document.querySelector('.activeColor').classList.remove('activeColor');
+      button.classList.add('activeColor');
       triggerToast();
     });
   });
+});
 
-  $('input[type=radio]').on('change', function() {
-    var buttonPos = $('input[name="pos"]:checked').val();
+Array.from(document.querySelectorAll('input[name=pos]')).forEach((input) => {
+  input.addEventListener('change', (event) => {
+    if (!input.checked)
+      return;
+
     chrome.storage.sync.set({
-      "buttonPos": buttonPos
-    }, function() {
+      buttonPos: input.value
+    }, () => {
       triggerToast();
     });
   });
+});
 
-  $('a[href="#ButtonTab"').on('click', function() {
-    chrome.storage.sync.get({
-      buttonPos: 'right'
-    }, function(items) {
-      $('#' + items.buttonPos + '').prop('checked', true);
+document.querySelector('a[href="#ScrollTab"]').addEventListener('click', (event) => {
+  chrome.storage.sync.get({
+    scrollSpeed: '1'
+  }, (items) => {
+    document.querySelector(`input[name='speed'][value='${items.scrollSpeed}']`).checked = true;
+  });
+});
+
+Array.from(document.querySelectorAll('input[name=speed]')).forEach((input) => {
+  input.addEventListener('change', (event) => {
+    if (!input.checked)
+      return;
+
+    chrome.storage.sync.set({
+      scrollSpeed: input.value
+    }, () => {
+      triggerToast();
     });
   });
+});
 
-  $('a.js-author-link').on('click', function() {
-    chrome.tabs.create({url: $(this).attr('href')});
+Array.from(document.querySelectorAll('a.js-author-link')).forEach((link) => {
+  link.addEventListener('click', (event) => {
+    chrome.tabs.create({url: link.href});
     return false;
   });
 });

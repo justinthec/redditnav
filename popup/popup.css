@@ -51,7 +51,7 @@ body {
   transition: all 0.3s, ease-out;
 }
 
-.colors-container .color:hover {
+.colors-container .color:hover, .activeColor {
   z-index: 3;
   -webkit-box-shadow: 2px 10px 49px 0px rgba(0,0,0,0.4);
   -moz-box-shadow: 2px 10px 49px 0px rgba(0,0,0,0.4);
