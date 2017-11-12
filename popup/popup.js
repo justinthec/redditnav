@@ -20,7 +20,7 @@ const colorMap = {
   'rgb(0, 188, 212)' : 'cyan'
 };
 
-window.addEventListener('load', (event) => {
+window.addEventListener('load', () => {
   chrome.storage.sync.get({
     buttonPos: 'right',
     color: 'rgb(255, 87, 34)'
@@ -30,8 +30,8 @@ window.addEventListener('load', (event) => {
   });
 });
 
-Array.from(document.querySelectorAll('button.color')).forEach((button) => {
-  button.addEventListener('click', (event) => {
+document.querySelectorAll('button.color').forEach(button => {
+  button.addEventListener('click', () => {
     chrome.storage.sync.set({
       color: window.getComputedStyle(button).backgroundColor
     }, () => {
@@ -42,8 +42,8 @@ Array.from(document.querySelectorAll('button.color')).forEach((button) => {
   });
 });
 
-Array.from(document.querySelectorAll('input[name=pos]')).forEach((input) => {
-  input.addEventListener('change', (event) => {
+document.querySelectorAll('input[name=pos]').forEach(input => {
+  input.addEventListener('change', () => {
     if (!input.checked)
       return;
 
@@ -55,7 +55,7 @@ Array.from(document.querySelectorAll('input[name=pos]')).forEach((input) => {
   });
 });
 
-document.querySelector('a[href="#ScrollTab"]').addEventListener('click', (event) => {
+document.querySelector('a[href="#ScrollTab"]').addEventListener('click', () => {
   chrome.storage.sync.get({
     scrollSpeed: '1'
   }, (items) => {
@@ -63,8 +63,8 @@ document.querySelector('a[href="#ScrollTab"]').addEventListener('click', (event)
   });
 });
 
-Array.from(document.querySelectorAll('input[name=speed]')).forEach((input) => {
-  input.addEventListener('change', (event) => {
+document.querySelectorAll('input[name=speed]').forEach(input => {
+  input.addEventListener('change', () => {
     if (!input.checked)
       return;
 
@@ -76,8 +76,8 @@ Array.from(document.querySelectorAll('input[name=speed]')).forEach((input) => {
   });
 });
 
-Array.from(document.querySelectorAll('a.js-author-link')).forEach((link) => {
-  link.addEventListener('click', (event) => {
+document.querySelectorAll('a.js-author-link').forEach((link) => {
+  link.addEventListener('click', () => {
     chrome.tabs.create({url: link.href});
     return false;
   });
