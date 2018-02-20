@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+  <title>RedditNav Panel</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css" type="text/css">
+</head>
+<body>
+  <div class="section section--header">
+    <img src="icon128.png" class="header-icon">
+    <h3 class="header-text">Reddit<span class="nav-text">Nav</span></h3>
+  </div>
+  <h4 class="section--subheader">Button Color</h4>
+  <div class="section colors-container">
+    <button class="color color--red"></button>
+    <button class="color color--orange"></button>
+    <button class="color color--yellow"></button>
+    <button class="color color--green"></button>
+    <button class="color color--grey"></button>
+    <button class="color color--purple"></button>
+    <button class="color color--blue"></button>
+    <button class="color color--cyan"></button>
+  </div>
+  <h4 class="section section--subheader">Button Position</h4>
+  <div class="section section--posn">
+    <div>
+      <input name="pos" type="radio" id="left" value="left"/>
+      <label for="left">Left</label>
+    </div>
+    <div>
+      <input name="pos" type="radio" id="right" value="right"/>
+      <label for="right">Right</label>
+    </div>
+    <div>
+      <input name="pos" type="radio" id="hide" value="hide"/>
+      <label for="hide">Hidden</label>
+    </div>
+  </div>
+  <h4 class="section section--subheader">Scroll Speed</h4>
+  <div class="section section--speed">
+    <div>
+      <input name="speed" type="radio" id="slow" value="2"/>
+      <label for="slow">Slow</label>
+    </div>
+    <div>
+      <input name="speed" type="radio" id="medium" value="1"/>
+      <label for="medium">Medium</label>
+    </div>
+    <div>
+      <input name="speed" type="radio" id="fast" value="0.5"/>
+      <label for="fast">Fast</label>
+    </div>
+    <div>
+      <input name="speed" type="radio" id="instant" value="0"/>
+      <label for="instant">Instant</label>
+    </div>
+  </div>
+  <h4 class="section section--subheader">Scroll Hotkey</h4>
+  <div class="section section--bindings">
+    <label for="up">Scroll Up</label>
+    <input name="binding" id="up" type="text" maxlength="1" size="1" readonly>
+    <label for="down">Scroll Down</label>
+    <input name="binding" id="down" type="text" maxlength="1" size="1" readonly>
+  </div>
+  <div class="section section--help">
+    <p>Experiencing issues? Let us know 
+      <a href="https://chrome.google.com/webstore/detail/reddit-nav/dpkijnoebmekoiafbkledpjhkpgllkfe/support" target="_blank">here</a>
+    </p>
+  </div>
+  <div id="scripts">
+    <script src="../util.js"></script>
+    <script src="popup.js"></script>
+  </div>
+</body>
+</html>

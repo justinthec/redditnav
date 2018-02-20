@@ -1,0 +1,20 @@
+{
+  "name": "redditnav",
+  "version": "2.0.0",
+  "description": "Effortlessly scroll through comment threads on Reddit and Reddit-like sites.",
+  "repository": "https://github.com/justinthec/redditnav.git",
+  "author": "Srdjan Mitrovic <srdjanmk8@gmail.com>",
+  "contributors": [
+    "Justin Chan <justinthec@gmail.com>",
+    "Devin Rousso <hi@devinrousso.com"
+  ],
+  "scripts": {
+    "build": "./scripts/build.sh && node ./scripts/mkManifests.js",
+    "ff:test": "cd lib/firefox && web-ext run",
+    "lint": "eslint \"src/*.js\" ./scripts/mkManifests.js"
+  },
+  "devDependencies": {
+    "eslint": "^4.12.1",
+    "web-ext": "^2.2.2"
+  }
+}
