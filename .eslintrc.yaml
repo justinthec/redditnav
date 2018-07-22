@@ -1,0 +1,23 @@
+root: true
+
+env:
+  browser: true
+  es6: true
+  webextensions: true
+
+parserOptions:
+  ecmaVersion: 2017
+
+rules:
+  indent: [error, 2, {
+    ArrayExpression: 1,
+    CallExpression: {arguments: first},
+    MemberExpression: 1,
+    ObjectExpression: 1,
+    SwitchCase: 1
+  }]
+  no-extra-semi: error
+  semi: [error, never]
+  multiline-ternary: [error, always-multiline]
+  eol-last: [error, always]
+  no-trailing-spaces: error
