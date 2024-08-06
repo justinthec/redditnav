@@ -11,13 +11,13 @@ const SITES = {
 }
 
 const manifest = {
-  "manifest_version": 2,
+  "manifest_version": 3,
 
   "name": "Reddit Nav",
   "description": "Effortlessly scroll through comment threads on Reddit.",
   "version": VERSION,
 
-  "browser_action": {
+  "action": {
     "default_icon": "popup/icon128.png",
     "default_popup": "popup/popup.html",
     "default_title": "RedditNav"
@@ -27,7 +27,10 @@ const manifest = {
     "128": "popup/icon128.png"
   },
   "permissions": ["storage"],
-  "web_accessible_resources": ["navbutton.html"],
+  "web_accessible_resources": [{
+    "resources": ["navbutton.html"],
+    "matches": ["https://www.reddit.com/*", "http://www.reddit.com/*", "https://old.reddit.com/*", "http://old.reddit.com/*"]
+  }],
   "content_scripts": [],
 }
 

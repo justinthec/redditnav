@@ -1,4 +1,4 @@
-![image](http://i.imgur.com/VnfEuzT.png?2) [![image](https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png)](https://chrome.google.com/webstore/detail/reddit-nav/dpkijnoebmekoiafbkledpjhkpgllkfe) [![image](./ff_icon.png)](#)
+![image](http://i.imgur.com/VnfEuzT.png?2) [![image](./chrome.png)](#) [![image](./ff_icon.png)](#)
 ---------
 
 RedditNav is an improvement to the way you browse comments on Reddit and Reddit-like sites such as HackerNews, enabling you to more efficiently waste time like never before.
