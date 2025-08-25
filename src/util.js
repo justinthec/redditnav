@@ -59,7 +59,7 @@ const _promisifyChrome = prop => (...args) =>
 const _storageGet = key => _getProp('storage.sync.get')(key)
 const _storageSet = i => _getProp('storage.sync.set')(i)
 
-const _extensionGetUrl = uri => _getProp('extension.getURL')(uri)
+const _extensionGetUrl = uri => _getProp('runtime.getURL')(uri)
 
 const _onRuntimeMessage = f => _getProp('runtime.onMessage.addListener')(f)
 const _queryTabs = q => _getProp('tabs.query')(q)
@@ -68,7 +68,7 @@ const _sendMessage = (id, msg) => _getProp('tabs.sendMessage')(id, msg)
 const _traverse = (obj, sel) => {
   const doTraverse = (o, s) =>
     s.length === 1 ?
-      o[s].bind(o) :
+      o[s[0]].bind(o) :
       doTraverse(o[s[0]], s.slice(1))
   return doTraverse(obj, sel.split('.'))
 }
